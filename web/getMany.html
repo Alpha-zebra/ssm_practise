@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+
+    <title>Use AJAX Get Many Hero Object</title>
+</head>
+<body>
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<input type="button" value="through AJAX receive many Hero object 111---->" id="sender">
+<div id="messageDiv"></div>
+<script>
+    $('#sender').click(function () {
+        var url="getManyCategory";
+        $.post(
+            url,
+            function (data) {
+                console.log(data)
+                var categorys=$.parseJSON(data)
+                console.log(categorys.length)
+
+                for(i in categorys){
+                    var old=$("#messageDiv").html();
+                    var category=categorys[i]
+                    $("#messageDiv").html(old+"<br>"+category.id+"  ------  "+category.name);
+                }
+
+            }
+        );
+    });
+</script>
+</body>
+</html>

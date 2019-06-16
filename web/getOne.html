@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+
+    <title>Use AJAX Get One Hero Object</title>
+</head>
+<body>
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<input type="button" value="through AJAX receive one Hero object---->" id="sender">
+<div id="messageDiv"></div>
+<script>
+    $('#sender').click(function () {
+        var url="getOneCategory";
+        $.post(
+            url,
+            function (data) {
+                var json=JSON.parse(data);
+                var name=json.category.name;
+                var id=json.category.id;
+                $("#messageDiv").html("category id:"+id+"<br/> category name:"+name)
+
+
+            }
+        );
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alpha.pojo">
+    <resultMap id="productBean" type="Product">
+        <id column="pid" property="id"/>
+        <result column="pname" property="name"/>
+        <result column="price" property="price"/>
+
+        <association property="category" javaType="Category">
+            <id column="cid" property="id"/>
+            <result column="cname" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="list" resultMap="productBean">
+        select p.id 'pid',p.name 'pname',p.price,c.id 'cid',c.name 'cname' from
+        product_ p inner join category_ c on c.id=p.cid
+    </select>
+    <!--<select id="list" resultType="Product">-->
+        <!--select * from product_-->
+    <!--</select>-->
+    <insert id="add" parameterType="Product">
+        insert into product_ values (null,#{name},#{price})
+    </insert>
+    <delete id="delete" parameterType="_int">
+        delete from product_ where id=#{id}
+    </delete>
+    <select id="get" parameterType="_int" resultType="Product">
+        select * from product_ where id=#{id}
+    </select>
+    <update id="update" parameterType="Product">
+        update product_ set name=#{name} , price=#{price} where id=#{id}
+    </update>
+</mapper>
